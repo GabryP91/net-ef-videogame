@@ -41,26 +41,42 @@ namespace net_ef_videogame
                     switch (choice)
                     {
                         case 1:
-                            string name = CheckString("\nInserisci il nome del videogioco: ");
-
-                            string overview = CheckString("\nInserisci una descrizione: ");
-
-                            DateTime date = CheckDate("\nInserisci data rilascio: ");
-
-                            Software_house id = CheckIdSoftware("Inserisci id Software di riferimento: ", manager);
-
-                            Videogame gioco = new Videogame(name, overview, date, id);
-
-                            try
+                            using (GameDbContext db = new GameDbContext())
                             {
-                                manager.InserisciVideogame(gioco);
+                                //se la tabella Sw è popolata
+                                if (db.Software_house.Any())
+                                {
+                                    string name = CheckString("\nInserisci il nome del videogioco: ");
 
-                                Console.WriteLine("Videogioco inserito con successo.");
+                                    string overview = CheckString("\nInserisci una descrizione: ");
+
+                                    DateTime date = CheckDate("\nInserisci data rilascio: ");
+
+                                    int id = CheckIdSoftware("Inserisci id Software di riferimento: ", manager);
+
+                                    Videogame gioco = new Videogame(name, overview, date, id);
+
+                                    try
+                                    {
+                                        manager.InserisciVideogame(gioco);
+
+                                        Console.WriteLine("Videogioco inserito con successo.");
+                                    }
+                                    catch (ArgumentException ex)
+                                    {
+                                        Console.WriteLine($"Errore: {ex.Message}");
+                                    }
+                                }
+
+                                else
+                                {
+                                    
+                                    Console.WriteLine("\nNessuna software house presete.Procedere prima all'inerimento\n");
+                                }
+
                             }
-                            catch (ArgumentException ex)
-                            {
-                                Console.WriteLine($"Errore: {ex.Message}");
-                            }
+                               
+
                             break;
                         case 2:
 
@@ -112,30 +128,11 @@ namespace net_ef_videogame
 
                                 else
                                 {
-                                    //aggiunta nuove software house
-                                    Software_house newSoftwareHouse1 = new Software_house("Nintendo", "ME-697-14-7528-0", "Kyoto", "Japan");
-                                    db.Add(newSoftwareHouse1);
-                                    Software_house newSoftwareHouse2 = new Software_house("Rockstar Games", "GA-160-16-9503-1", "New York City", "United States");
-                                    db.Add(newSoftwareHouse2);
-                                    Software_house newSoftwareHouse3 = new Software_house("Valve Corporation", "UT-277-92-7542-2", "Bellevue", "United States");
-                                    db.Add(newSoftwareHouse3);
-                                    Software_house newSoftwareHouse4 = new Software_house("Electronic Arts", "SD-032-99-9226-3", "Redwood City", "United States");
-                                    db.Add(newSoftwareHouse4);
-                                    Software_house newSoftwareHouse5 = new Software_house("Ubisoft", "NC-134-01-6528-4", "Montreuil", "France");
-                                    db.Add(newSoftwareHouse5);
-
-                                    db.SaveChanges();
+                                    manager.InsertSoftwareHouse();
 
                                     Console.WriteLine("\nInserimento software house avvenuto con successo");
                                 }
-                               
-
-                                /* Cancellazione dati
-                                db.Remove(newSoftwareHouse);
-                               
-                                */
-
-
+                           
                             }
                     
 
@@ -202,7 +199,7 @@ namespace net_ef_videogame
             return input;
         }
 
-        static Software_house CheckIdSoftware(string message, VideogameManager manager)
+        static int CheckIdSoftware(string message, VideogameManager manager)
         {
             int num;
             Console.WriteLine();
@@ -218,14 +215,7 @@ namespace net_ef_videogame
                 Console.WriteLine(message);
             }
 
-            using (GameDbContext db = new GameDbContext())
-            {
-                Software_house videoGamesFromSoftwareHouse = db.Software_house.FirstOrDefault(v => v.id == num);
-
-                return videoGamesFromSoftwareHouse;
-
-            }
-            
+            return num;
         }
 
         static int CheckIdGame(string message)

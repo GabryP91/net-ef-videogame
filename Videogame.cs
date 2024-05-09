@@ -22,15 +22,17 @@ namespace net_ef_videogame
         public DateTime Release { get; set; }
 
         //relazione molti a 1 (chiave esterna)
+        public long Software_house_id { get; set; }
         public Software_house Software_house { get; set; }
         public Videogame() { }
        
-        public Videogame(string name, string overview, DateTime release, Software_house id)
+        public Videogame(string name, string overview, DateTime release, long id)
         {
             Overview = overview;
             Name = name;
-            Software_house = id;
             Release = release;
+            Software_house_id = id;
+            
         }
 
         //override del metodo ToString

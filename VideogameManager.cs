@@ -17,12 +17,9 @@ namespace net_ef_videogame
             
             using (GameDbContext db = new GameDbContext())
             {
-                
 
-               Software_house videoGamesFromSoftwareHouse = db.Software_house.FirstOrDefault(v => v.id == gioco.Software_house.id);
+                db.Videogame.Add(gioco);
 
-                Videogame newVideoGame = new Videogame(gioco.Name, gioco.Overview, gioco.Release, videoGamesFromSoftwareHouse);
-                db.Add(newVideoGame);
                 db.SaveChanges();
                 
             }
@@ -78,23 +75,38 @@ namespace net_ef_videogame
                 
                 var SoftwareHouse = db.Software_house.ToList();
 
-                //controllo che ci siano software house
-                if (SoftwareHouse.Count == 0)
-                {
-                    Console.WriteLine("Nessuna software house disponibile nel database.");
-                }
+                
 
-                else
-                {
-
-                    foreach (var SW in SoftwareHouse)
+                foreach (var SW in SoftwareHouse)
                     {
                         Console.WriteLine($"\nNomeSW: {SW.Name} Sede: {SW.City} Nazione: {SW.Country} ID: [{SW.id}]\n");
                     }
 
-                }
+                
 
             }
         }
-    }
+
+        public void InsertSoftwareHouse()
+        {
+            using (GameDbContext db = new GameDbContext())
+            {
+
+                //aggiunta nuove software house
+                Software_house newSoftwareHouse1 = new Software_house("Nintendo", "ME-697-14-7528-0", "Kyoto", "Japan");
+                db.Add(newSoftwareHouse1);
+                Software_house newSoftwareHouse2 = new Software_house("Rockstar Games", "GA-160-16-9503-1", "New York City", "United States");
+                db.Add(newSoftwareHouse2);
+                Software_house newSoftwareHouse3 = new Software_house("Valve Corporation", "UT-277-92-7542-2", "Bellevue", "United States");
+                db.Add(newSoftwareHouse3);
+                Software_house newSoftwareHouse4 = new Software_house("Electronic Arts", "SD-032-99-9226-3", "Redwood City", "United States");
+                db.Add(newSoftwareHouse4);
+                Software_house newSoftwareHouse5 = new Software_house("Ubisoft", "NC-134-01-6528-4", "Montreuil", "France");
+                db.Add(newSoftwareHouse5);
+
+                db.SaveChanges();
+
+            }
+        }
+     }
 }
