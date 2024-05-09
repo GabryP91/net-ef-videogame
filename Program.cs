@@ -31,8 +31,9 @@ namespace net_ef_videogame
                 Console.WriteLine("2. Ricercare un videogioco per ID");
                 Console.WriteLine("3. Ricercare tutti i videogioco aventi il nome contenente una determinata stringa");
                 Console.WriteLine("4. Cancellare un videogioco");
-                Console.WriteLine("5. inserisci una nuova software house");
-                Console.WriteLine("6. Chiudere il programma");
+                Console.WriteLine("5. Inseriemnto automatico SW");
+                Console.WriteLine("6. Cancellazione automatica TUTTE SW");
+                Console.WriteLine("7. Chiudere il programma");
 
                 int choice;
                 if (int.TryParse(Console.ReadLine(), out choice))
@@ -46,13 +47,13 @@ namespace net_ef_videogame
 
                             DateTime date = CheckDate("\nInserisci data rilascio: ");
 
-                            int id = CheckIdSoftware("Inserisci id Software di riferimento: ", manager);
+                            Software_house id = CheckIdSoftware("Inserisci id Software di riferimento: ", manager);
 
-                            //Videogame gioco = new Videogame(name, overview, date, id);
+                            Videogame gioco = new Videogame(name, overview, date, id);
 
                             try
                             {
-                                //manager.InserisciVideogame(gioco);
+                                manager.InserisciVideogame(gioco);
 
                                 Console.WriteLine("Videogioco inserito con successo.");
                             }
@@ -65,14 +66,29 @@ namespace net_ef_videogame
 
                             int idVideogame = CheckIdGame("\nInserisci l'ID del videogioco da cercare: ");
 
-                            manager.GetVideogameById(idVideogame);
+                            Videogame prova = manager.GetVideogameById(idVideogame);
+
+                            Console.WriteLine(prova.ToString());
 
                             break;
                         case 3:
 
                             string searchTerm = CheckString("\n Inserisci una parola: ");
 
-                            manager.GetVideogamesByString(searchTerm);
+                            List<Videogame> listaGiochi = manager.GetVideogamesByString(searchTerm);
+
+                            if (listaGiochi.Count > 0)
+                            {
+                                foreach (Videogame giocoL in listaGiochi)
+                                {
+                                    // Stampo tutte le informazioni di ogni gioco trovato
+                                    Console.WriteLine(giocoL.ToString());
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Nessun videogioco trovato.");
+                            }
 
                             break;
                         case 4:
@@ -88,31 +104,36 @@ namespace net_ef_videogame
 
                             using(GameDbContext db = new GameDbContext())
                             {
-
-                                //Create oggetto Software_house + aggiunta riga con queste informazioni a tabella corrispondente
-                                Software_house newSoftwareHouse = new Software_house ("Nintendo", "ME-697-14-7528-0", "Kyoto", "Japan");
-                                db.Add(newSoftwareHouse);
-                                db.SaveChanges();
-
-                                // Creazione di un nuovo videogioco associato a una software house esistente
-                                Videogame newVideoGame = new Videogame ("Super Mario", "molto bello", DateTime.Now, newSoftwareHouse);
-                                db.Add(newVideoGame);
-                                db.SaveChanges();
-                                Console.WriteLine("\nInserimento attendere.....\n");
-                                // Stampa tutti i videogiochi prodotti da una software house
-                                int softwareHouseIdToQuery = newSoftwareHouse.id; // ID della software house di cui si desidera visualizzare i videogiochi
-
-                                var videoGamesFromSoftwareHouse = db.Videogame.Where(v => v.Software_house.id == softwareHouseIdToQuery).ToList();
-                                foreach (var game in videoGamesFromSoftwareHouse)
+                                //se la tabella Sw è popolata
+                                if(db.Software_house.Any())
                                 {
-                                    Console.WriteLine("\nInserimento avvenuto con successo\n");
-                                    Console.WriteLine($"Titolo inserito: {game.Name}");
+                                    Console.WriteLine("\nDB non vuoto.....eliminare informazioni da software House");
                                 }
 
-                                // Cancellazione dati
+                                else
+                                {
+                                    //aggiunta nuove software house
+                                    Software_house newSoftwareHouse1 = new Software_house("Nintendo", "ME-697-14-7528-0", "Kyoto", "Japan");
+                                    db.Add(newSoftwareHouse1);
+                                    Software_house newSoftwareHouse2 = new Software_house("Rockstar Games", "GA-160-16-9503-1", "New York City", "United States");
+                                    db.Add(newSoftwareHouse2);
+                                    Software_house newSoftwareHouse3 = new Software_house("Valve Corporation", "UT-277-92-7542-2", "Bellevue", "United States");
+                                    db.Add(newSoftwareHouse3);
+                                    Software_house newSoftwareHouse4 = new Software_house("Electronic Arts", "SD-032-99-9226-3", "Redwood City", "United States");
+                                    db.Add(newSoftwareHouse4);
+                                    Software_house newSoftwareHouse5 = new Software_house("Ubisoft", "NC-134-01-6528-4", "Montreuil", "France");
+                                    db.Add(newSoftwareHouse5);
+
+                                    db.SaveChanges();
+
+                                    Console.WriteLine("\nInserimento software house avvenuto con successo");
+                                }
+                               
+
+                                /* Cancellazione dati
                                 db.Remove(newSoftwareHouse);
-                                db.Remove(newVideoGame);
-                                db.SaveChanges();
+                               
+                                */
 
 
                             }
@@ -120,6 +141,19 @@ namespace net_ef_videogame
 
                             break;
                         case 6:
+
+                            using (GameDbContext db = new GameDbContext())
+                            {
+                                // Rimuovi tutte le software house
+                                db.Software_house.RemoveRange(db.Software_house);
+                                db.SaveChanges();
+
+                                Console.WriteLine("\nSvuotamento della tabella Software_house completato.");
+
+                            }
+
+                            break;
+                        case 7:
                             running = false;
                             break;
                         default:
@@ -168,7 +202,7 @@ namespace net_ef_videogame
             return input;
         }
 
-        static int CheckIdSoftware(string message, VideogameManager manager)
+        static Software_house CheckIdSoftware(string message, VideogameManager manager)
         {
             int num;
             Console.WriteLine();
@@ -183,8 +217,15 @@ namespace net_ef_videogame
                 Console.WriteLine("Sintassi errata. Inserisci un numero intero");
                 Console.WriteLine(message);
             }
-            return num;
 
+            using (GameDbContext db = new GameDbContext())
+            {
+                Software_house videoGamesFromSoftwareHouse = db.Software_house.FirstOrDefault(v => v.id == num);
+
+                return videoGamesFromSoftwareHouse;
+
+            }
+            
         }
 
         static int CheckIdGame(string message)

@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace net_ef_videogame
 {
@@ -32,7 +33,13 @@ namespace net_ef_videogame
             Release = release;
         }
 
-       
+        //override del metodo ToString
+        public override string ToString()
+        {
+            return $"\nNome: {Name} - Descrizione: {Overview} - Data di rilascio: {Release}";
+        }
+
+
     }
 
 }
