@@ -33,7 +33,7 @@ namespace net_ef_videogame
                 using SqlCommand cmd = new SqlCommand(query, connessioneSql);
 
                 //chiamo funzione privata InsertInternal
-                InsertInternal(cmd, gioco.Name, gioco.Overview, gioco.Release, gioco.Id_software);
+                //InsertInternal(cmd, gioco.Name, gioco.Overview, gioco.Release, gioco.Id_software);
             }
             catch (Exception ex)
             { }

@@ -12,7 +12,7 @@ using net_ef_videogame;
 namespace net_ef_videogame.Migrations
 {
     [DbContext(typeof(GameDbContext))]
-    [Migration("20240508154634_InitialCreate")]
+    [Migration("20240509140022_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -64,9 +64,6 @@ namespace net_ef_videogame.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("Id_software")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()

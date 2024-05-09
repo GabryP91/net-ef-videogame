@@ -48,11 +48,12 @@ namespace net_ef_videogame
 
                             int id = CheckIdSoftware("Inserisci id Software di riferimento: ", manager);
 
-                            Videogame gioco = new Videogame(name, overview, date, id);
+                            //Videogame gioco = new Videogame(name, overview, date, id);
 
                             try
                             {
-                                manager.InserisciVideogame(gioco);
+                                //manager.InserisciVideogame(gioco);
+
                                 Console.WriteLine("Videogioco inserito con successo.");
                             }
                             catch (ArgumentException ex)
@@ -87,7 +88,8 @@ namespace net_ef_videogame
 
                             using(GameDbContext db = new GameDbContext())
                             {
-                                // Create oggetto Software_house + aggiunta riga con queste informazioni a tabella corrispondente
+
+                                //Create oggetto Software_house + aggiunta riga con queste informazioni a tabella corrispondente
                                 Software_house newSoftwareHouse = new Software_house ("Nintendo", "ME-697-14-7528-0", "Kyoto", "Japan");
                                 db.Add(newSoftwareHouse);
                                 db.SaveChanges();
@@ -107,10 +109,12 @@ namespace net_ef_videogame
                                     Console.WriteLine($"Titolo inserito: {game.Name}");
                                 }
 
-                                // Delete
+                                // Cancellazione dati
                                 db.Remove(newSoftwareHouse);
                                 db.Remove(newVideoGame);
                                 db.SaveChanges();
+
+
                             }
                     
 

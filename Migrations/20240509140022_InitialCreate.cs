@@ -36,7 +36,6 @@ namespace net_ef_videogame.Migrations
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Overview = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Release = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Id_software = table.Column<int>(type: "int", nullable: false),
                     Software_houseid = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
