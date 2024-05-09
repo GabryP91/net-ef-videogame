@@ -12,7 +12,7 @@ using net_ef_videogame;
 namespace net_ef_videogame.Migrations
 {
     [DbContext(typeof(GameDbContext))]
-    [Migration("20240509175541_InitialCreate")]
+    [Migration("20240509182345_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -75,9 +75,6 @@ namespace net_ef_videogame.Migrations
 
                     b.Property<DateTime>("Release")
                         .HasColumnType("datetime2");
-
-                    b.Property<long>("Software_house_id")
-                        .HasColumnType("bigint");
 
                     b.Property<long>("Software_houseid")
                         .HasColumnType("bigint");

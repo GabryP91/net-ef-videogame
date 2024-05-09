@@ -22,7 +22,7 @@ namespace net_ef_videogame
         public DateTime Release { get; set; }
 
         //relazione molti a 1 (chiave esterna)
-        public long Software_house_id { get; set; }
+        public long Software_houseid { get; set; }
         public Software_house Software_house { get; set; }
         public Videogame() { }
        
@@ -31,7 +31,7 @@ namespace net_ef_videogame
             Overview = overview;
             Name = name;
             Release = release;
-            Software_house_id = id;
+            Software_houseid = id;
             
         }
 

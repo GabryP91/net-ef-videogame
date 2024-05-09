@@ -73,9 +73,6 @@ namespace net_ef_videogame.Migrations
                     b.Property<DateTime>("Release")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("Software_house_id")
-                        .HasColumnType("bigint");
-
                     b.Property<long>("Software_houseid")
                         .HasColumnType("bigint");
 
