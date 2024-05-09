@@ -13,14 +13,14 @@ namespace net_ef_videogame
     [Index(nameof(Tax_id), IsUnique = true)]
     public class Software_house
     {
-        public int id { get; set; }
+        public long id { get; set; }
         public string Name { get; set; }
         public string Tax_id { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
 
         //relazione 1 a molti
-        public List<Videogame> Videogame { get; set; }
+        public List<Videogame> Videogames { get; set; }
         public Software_house() { }
         public Software_house(string name, string tax_id, string city, string country)
         {

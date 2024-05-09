@@ -24,11 +24,11 @@ namespace net_ef_videogame.Migrations
 
             modelBuilder.Entity("net_ef_videogame.Software_house", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<long>("id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("id"));
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -76,8 +76,8 @@ namespace net_ef_videogame.Migrations
                     b.Property<long>("Software_house_id")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("Software_houseid")
-                        .HasColumnType("int");
+                    b.Property<long>("Software_houseid")
+                        .HasColumnType("bigint");
 
                     b.HasKey("id");
 
@@ -92,7 +92,7 @@ namespace net_ef_videogame.Migrations
             modelBuilder.Entity("net_ef_videogame.Videogame", b =>
                 {
                     b.HasOne("net_ef_videogame.Software_house", "Software_house")
-                        .WithMany("Videogame")
+                        .WithMany("Videogames")
                         .HasForeignKey("Software_houseid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -102,7 +102,7 @@ namespace net_ef_videogame.Migrations
 
             modelBuilder.Entity("net_ef_videogame.Software_house", b =>
                 {
-                    b.Navigation("Videogame");
+                    b.Navigation("Videogames");
                 });
 #pragma warning restore 612, 618
         }

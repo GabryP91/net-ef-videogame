@@ -41,7 +41,6 @@ namespace net_ef_videogame
             return $"\nNome: {Name} - Descrizione: {Overview} - Data di rilascio: {Release}";
         }
 
-
     }
 
 }

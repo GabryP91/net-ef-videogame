@@ -15,7 +15,7 @@ namespace net_ef_videogame.Migrations
                 name: "Software_house",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Tax_id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -37,7 +37,7 @@ namespace net_ef_videogame.Migrations
                     Overview = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Release = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Software_house_id = table.Column<long>(type: "bigint", nullable: false),
-                    Software_houseid = table.Column<int>(type: "int", nullable: false)
+                    Software_houseid = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
