@@ -12,7 +12,7 @@ using net_ef_videogame;
 namespace net_ef_videogame.Migrations
 {
     [DbContext(typeof(GameDbContext))]
-    [Migration("20240509182345_InitialCreate")]
+    [Migration("20240510064457_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

@@ -139,7 +139,7 @@ namespace net_ef_videogame
                             break;
                         case 6:
 
-                            /*using (GameDbContext db = new GameDbContext())
+                            using (GameDbContext db = new GameDbContext())
                             {
                                 // Rimuovi tutte le software house
                                 db.Software_house.RemoveRange(db.Software_house);
@@ -147,12 +147,12 @@ namespace net_ef_videogame
 
                                 Console.WriteLine("\nSvuotamento della tabella Software_house completato.");
 
-                            }*/
+                            }
 
-                            using (var context = new GameDbContext())
+                            /*using (var context = new GameDbContext())
                             {
                                 context.Database.EnsureDeleted();
-                            }
+                            }*/
 
                             break;
                         case 7:
