@@ -71,7 +71,7 @@ namespace net_ef_videogame
                                 else
                                 {
                                     
-                                    Console.WriteLine("\nNessuna software house presete.Procedere prima all'inserimento\n");
+                                    Console.WriteLine("\nNessuna software house presente.Procedere prima all'inserimento\n");
                                 }
 
                             }
