@@ -24,6 +24,7 @@ namespace net_ef_videogame
             VideogameManager manager = new VideogameManager();
 
             bool running = true;
+
             while (running)
             {
                 Console.WriteLine("Seleziona un'opzione:");
